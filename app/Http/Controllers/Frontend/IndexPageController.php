@@ -43,9 +43,15 @@ class IndexPageController extends Controller
      */
     public function store(CreateTicketRequest $request)
     {
+        if(!empty($request->validated('ticket_image'))){
+          $imageName = time().".".$request->validated('ticket_image')->extension();
+        $request->validated('ticket_image')->move(public_path('uploadedTicketImages'),$imageName);
+        }
+        
         $ticket =Ticket::create($request->validated());
         $ticket->labels()->attach($request->validated('label'));
         $ticket->categories()->attach($request->validated('category'));
+        
         return redirect()->route('index.index')->with("success","Ticket Submited Our Agents Would Get Back To  You Soon");
     }
 

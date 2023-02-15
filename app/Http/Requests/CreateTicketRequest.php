@@ -28,11 +28,25 @@ class CreateTicketRequest extends FormRequest
             'text_description'=>['required'],
             'priority'=>['required','string'],
             'label'=>['required','exists:labels,id'],
-            'category[]'=>['required','string'],
+            'category'=>['required','string'],
             'user_id'=>['required','string'],
-        
+            'ticket_image'=>['mimes:jpeg,png,jpg,gif,svg','max:2048'],
 
-
+    
         ];
     }
+
+
+public function messages()
+{
+    return [
+        'title.required' => 'A title is required',
+        'text_description.required'=>'Message body required',
+        'priority.required' => 'Select priority',
+        'ticket_image.mimes' =>'Uploaded file type error',
+    ];
+}
+
+
+
 }

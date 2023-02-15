@@ -121,58 +121,78 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left">
 
-            <form action="{{ route('index.store') }}" method="POST" role="form" >
+            <form method="POST" enctype="multipart/form-data"  action="{{ route('index.store') }}"  class="forms-sample" >
                 @csrf
               <div class="row">
                 <div class="col-md-12 form-group">
+                    <input type="text" name="user_id" hidden value="{{ Auth::id() }}">
                     <label for="Title">Title<span class="text-danger">*</span></label>
-                  <input type="text" name="title" class="form-control" placeholder="Your Name" >
+                    <input type="text" value="{{ old('title') }}" name="title" class="form-control" placeholder="Ticket Title" >
+                    @error('title')
+                       <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
               <div class="form-group mt-3">
                 <label for="Message">Message<span class="text-danger">*</span></label>
-                <textarea class="form-control" name="text_description" rows="5" placeholder="Message" ></textarea>
+                <textarea class="form-control" value="{{ old('text_description') }}" name="text_description" rows="5" placeholder="Message" ></textarea>
+                @error('text_description')
+                   <span class="text-danger">{{ $message}}</span>
+                @enderror
               </div>
               
               <div class="form-group mt-3">
-                        <label class="form-label">Priority  <span class="text-danger">*</span></label>
-                            <select class="form-control ps-4" name="priority" id="">
-                                <option >Select Priority</option>
-                                @foreach ($priorities  as $priority )
-                                        <option  value="{{ $priority->id }}">{{ ucfirst($priority->priority) }}</option>
-                                @endforeach
-                            </select>
+                <label class="form-label">Priority  <span class="text-danger">*</span></label>
+                    <select class="form-control ps-4" name="priority" >
+                      <option selected disabled > Select Priority</option>
+                        @foreach ($priorities  as $priority )
+                                <option  value="{{ $priority->id }}">{{ ucfirst($priority->priority) }}</option>
+                        @endforeach
+                    </select>
+                    @error('priority')
+                     <span class="text-danger"> {{ $message }} </span>  
+                    @enderror
               </div>
-              {{-- <div class="col-md-6 form-group">
+              <div class="form-group mt-3">
                 <div class="md-6">
                        <label class="form-label">Upload <span class="text-danger">*</span></label>
-                           <input class="form-control ps-4" type="file">
+                        <input name="ticket_image" class="form-control ps-4" type="file">
+                        @error('ticket_image')
+                          <span class="text-danger">{{ $message }}</span>
+                        @enderror
                 </div>
-             </div> --}}
+             </div>
               
               <div class="form-group mt-3">
-                    <div class="form-check">
-                        <label class="form-label">Labels  <span class="text-danger">*</span></label>
+                    <div class="md-6">
+                        <label class="form-label">Labels  <span class="text-danger">*</span></label><br>
                         @foreach ($labels  as $label )
-                        <label for="javascript">{{ucfirst($label->label)}}</label>  
+                       
                             <input type="checkbox" value="{{$label->id }}" name="label" class="checkoption"  >
+                             <label >{{ucfirst($label->label)}}</label>  
                         @endforeach
+                         @error('label')
+                           <span class="text-danger">{{ $message }}</span>
+                         @enderror
                     </div>
               </div>
               <br>
               <div class="form-group mt-3">
-                <input type="text" name="user_id" hidden value="{{ Auth::id() }}" >
-                 <div class="form-check">
-                     <label class="form-label">Categories  <span class="text-danger">*</span></label>
+                    
+                 <div class="md-6">
+                     <label class="form-label">Categories  <span class="text-danger">*</span></label><br>
                      @foreach ($categories  as $category )
                          <input type="checkbox" value="{{$category->id }}" name="category" class="checkoption2" >
-                         <label class="form-check-label" for="javascript">{{ucfirst($category->name)  }}</label>  
+                         <label class="form-check-label" >{{ucfirst($category->name)  }}</label>  
                      @endforeach
+                     @error('category')
+                       <span class="text-danger">{{ $message }}</span>
+                     @enderror
                   </div>
               </div>
-            
-                <div class="text-center">
+              <br>
+              <div class="text-center">
                     <button type="submit">Send Ticket</button>
-                </div>
+              </div>
             </form>
 
           </div>

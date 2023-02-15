@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
-    protected $fillable =['title','text_description',];
+    protected $fillable = ['title','text_description','ticket_image','priority','status','user_id'];
     public function categories(){
         return $this->belongsToMany(Category::class);
     }
