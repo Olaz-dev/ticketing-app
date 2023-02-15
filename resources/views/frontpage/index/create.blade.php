@@ -74,7 +74,7 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="{{ route('index.create') }}">Submit Ticket</a></li>
+          <li><a class="nav-link scrollto" >Submit Ticket</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -121,54 +121,58 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="{{ route('index.store') }}" method="POST" role="form" >
+                @csrf
               <div class="row">
                 <div class="col-md-12 form-group">
                     <label for="Title">Title<span class="text-danger">*</span></label>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                  <input type="text" name="title" class="form-control" placeholder="Your Name" >
                 </div>
               <div class="form-group mt-3">
                 <label for="Message">Message<span class="text-danger">*</span></label>
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                <textarea class="form-control" name="text_description" rows="5" placeholder="Message" ></textarea>
               </div>
               
               <div class="form-group mt-3">
                         <label class="form-label">Priority  <span class="text-danger">*</span></label>
-                            <select class="form-control ps-4" name="" id="">
-                                <option value="">Select Priority</option>
+                            <select class="form-control ps-4" name="priority" id="">
+                                <option >Select Priority</option>
                                 @foreach ($priorities  as $priority )
-                                        <option  value="">{{ ucfirst($priority->priority) }}</option>
+                                        <option  value="{{ $priority->id }}">{{ ucfirst($priority->priority) }}</option>
                                 @endforeach
                             </select>
               </div>
-              <div class="col-md-6 form-group">
+              {{-- <div class="col-md-6 form-group">
                 <div class="md-6">
                        <label class="form-label">Upload <span class="text-danger">*</span></label>
                            <input class="form-control ps-4" type="file">
                 </div>
-             </div>
+             </div> --}}
               
               <div class="form-group mt-3">
                     <div class="form-check">
                         <label class="form-label">Labels  <span class="text-danger">*</span></label>
                         @foreach ($labels  as $label )
                         <label for="javascript">{{ucfirst($label->label)}}</label>  
-                            <input type="checkbox" value="{{$label->label }}" name="label" class="checkoption" {{ old('labels') == "$label->label" ? 'checked' : '' }} >
+                            <input type="checkbox" value="{{$label->id }}" name="label" class="checkoption"  >
                         @endforeach
                     </div>
               </div>
               <br>
               <div class="form-group mt-3">
+                <input type="text" name="user_id" hidden value="{{ Auth::id() }}" >
                  <div class="form-check">
                      <label class="form-label">Categories  <span class="text-danger">*</span></label>
                      @foreach ($categories  as $category )
-                         <input type="checkbox" value="{{$category->name }}" name="label" class="checkoption2" for="flexCheckDefault" {{ old('labels') == "$category->name" ? 'checked' : '' }} >
+                         <input type="checkbox" value="{{$category->id }}" name="category" class="checkoption2" >
                          <label class="form-check-label" for="javascript">{{ucfirst($category->name)  }}</label>  
                      @endforeach
                   </div>
               </div>
             
-              <div class="text-center"><button type="submit">Send Message</button></div>
+                <div class="text-center">
+                    <button type="submit">Send Ticket</button>
+                </div>
             </form>
 
           </div>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Label;
+use App\Models\Ticket;
 use App\Models\Category;
+use App\Models\Priority;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Priority;
+use App\Http\Requests\CreateTicketRequest;
 
 class IndexPageController extends Controller
 {
@@ -39,9 +41,12 @@ class IndexPageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTicketRequest $request)
     {
-        //
+        $ticket =Ticket::create($request->validated());
+        $ticket->labels()->attach($request->validated('label'));
+        $ticket->categories()->attach($request->validated('category'));
+        return redirect()->route('index.index')->with("success","Ticket Submited Our Agents Would Get Back To  You Soon");
     }
 
     /**

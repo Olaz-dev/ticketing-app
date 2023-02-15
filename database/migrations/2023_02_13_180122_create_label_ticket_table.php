@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_labels', function (Blueprint $table) {
+        Schema::create('label_ticket', function (Blueprint $table) {
             $table->unsignedBigInteger('ticket_id');
             $table->unsignedBigInteger('label_id');
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
             $table->foreign('label_id')->references('id')->on('labels')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_labels');
+        Schema::dropIfExists('label_ticket');
     }
 };
