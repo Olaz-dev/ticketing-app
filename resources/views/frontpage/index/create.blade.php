@@ -155,7 +155,7 @@
               <div class="form-group mt-3">
                 <div class="md-6">
                        <label class="form-label">Upload <span class="text-danger">*</span></label>
-                        <input name="ticket_image" class="form-control ps-4" type="file">
+                        <input value="{{ old('ticket_image') }}" name="ticket_image" class="form-control ps-4" type="file">
                         @error('ticket_image')
                           <span class="text-danger">{{ $message }}</span>
                         @enderror

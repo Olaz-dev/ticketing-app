@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\user_ticket;
+use Illuminate\Support\Facades\Auth;
 
 class TicketAssignedController extends Controller
 {
@@ -14,7 +18,11 @@ class TicketAssignedController extends Controller
      */
     public function index()
     {
-        return view('agent.assigned');
+        $loggedInUser = Auth::User()->id;
+        $ticket_user = user_ticket::where('user_id',$loggedInUser)->get('ticket_id');
+        $tickets = Ticket::find($ticket_user);
+        $users = User::all();
+        return view('agent.index',compact('tickets'));
     }
 
     /**
@@ -55,9 +63,14 @@ class TicketAssignedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($ticket)
     {
-        //
+       
+        $ticket_edit = Ticket::find($ticket);
+        //gets users who created ticket
+        $ticket_created_by = $ticket_edit->user_id;
+        $users = User::find($ticket_created_by);
+        return view('agent.edit',compact('ticket_edit','users'));
     }
 
     /**

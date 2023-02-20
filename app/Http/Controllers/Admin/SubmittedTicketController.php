@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Label;
+use App\Models\User;
 use App\Models\Ticket;
-use App\Models\Category;
-use App\Models\Priority;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateTicketRequest;
+use App\Http\Requests\TicketAgentAssignedRequest;
+use App\Models\Priority;
 
-class IndexPageController extends Controller
+class SubmittedTicketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +18,10 @@ class IndexPageController extends Controller
      */
     public function index()
     {
-        return view('frontpage.index.index');
+        $tickets = Ticket::all();
+      
+
+        return view('admin.ticket.index',compact('tickets'));
     }
 
     /**
@@ -29,10 +31,7 @@ class IndexPageController extends Controller
      */
     public function create()
     {
-        $labels = Label::all();
-        $categories = Category::all();
-        $priorities = Priority::all();
-        return view('frontpage.index.create',compact('labels','categories','priorities'));
+        //
     }
 
     /**
@@ -41,19 +40,9 @@ class IndexPageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateTicketRequest $request)
+    public function store(Request $request)
     {
-        if(!empty($request->validated('ticket_image'))){
-          $imageName = time().".".$request->validated('ticket_image')->extension();
-        
-      $request->validated('ticket_image')->move(public_path('uploadedTicketImages'),$imageName);
-        }
-        
-        $ticket =Ticket::create($request->validated(),$imageName);
-        $ticket->labels()->attach($request->validated('label'));
-        $ticket->categories()->attach($request->validated('category'));
-        
-        return redirect()->route('index.index')->with("success","Ticket Submited Our Agents Would Get Back To  You Soon");
+        //
     }
 
     /**
@@ -62,9 +51,14 @@ class IndexPageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($ticket)
     {
-        //
+        //show was purposely used here to test if I can attach from show and not from edit.
+        $agents = User::where('role_as','=','3')->get();
+        $ticket = Ticket::find($ticket);
+        $priority = Priority::where('id',$ticket->priority)->first();
+        return view('admin.ticket.show',compact('ticket','priority','agents'));
+        
     }
 
     /**
@@ -85,9 +79,13 @@ class IndexPageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TicketAgentAssignedRequest $request, Ticket $ticket)
     {
-        //
+        
+        $ticket->update($request->validated());
+        $agentassigned = $ticket->users()->attach($request->input('agent'));
+        
+        return redirect()->route('tickets.index')->with('success','Agent Assigned');
     }
 
     /**

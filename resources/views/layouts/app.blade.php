@@ -41,8 +41,14 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url("dashboard") }}">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi  mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('tickets.index') }}">
+              <i class="mdi  mdi-credit-card"></i>
+              <span class="menu-title">Tickets</span>
             </a>
           </li>
           <li class="nav-item">
@@ -63,6 +69,7 @@
               <span class="menu-title">Priority</span>
             </a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-crosshairs-gps menu-icon"></i>

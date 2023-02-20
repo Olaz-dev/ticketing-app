@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SubmittedTicketController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
@@ -33,10 +34,11 @@ Route::group(['middleware'=>'auth'], function(){
         return view('dashboard');
     })->name('dashboard');
     Route::resource('index', IndexPageController::class)->only('create');
-    Route::resource('agent/ticketassigned',TicketAssignedController::class)->middleware('admin');
+    Route::resource('agent/ticketassigned',TicketAssignedController::class)->middleware('agent');
     Route::resource('category',CategoryController::class)->middleware('admin');
     Route::resource('label',LabelController::class)->middleware('admin');
-    Route::resource('priority',PriorityController::class);
+    Route::resource('priority',PriorityController::class)->middleware('admin');
+    Route::resource('tickets',SubmittedTicketController::class)->middleware('admin');
 });
 
 //Route::get('/agent/ticketassigned',[TicketAssignedController::class,'index'])->middleware(['auth', 'agent'])->name('agent.ticket');

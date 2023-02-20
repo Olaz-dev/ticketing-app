@@ -17,4 +17,8 @@ class Ticket extends Model
         return $this->belongsToMany(Label::class);
     }
     
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
+
 }
