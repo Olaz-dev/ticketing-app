@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Models\User;
+
+use App\Models\user_ticket;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\user_ticket;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\agentCommentRequest;
 
 class TicketAssignedController extends Controller
 {
@@ -16,7 +18,7 @@ class TicketAssignedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+     public function index()
     {
         $loggedInUser = Auth::User()->id;
         $ticket_user = user_ticket::where('user_id',$loggedInUser)->get('ticket_id');
@@ -63,14 +65,13 @@ class TicketAssignedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($ticket)
+    public function edit( Ticket $ticketassigned)
     {
        
-        $ticket_edit = Ticket::find($ticket);
-        //gets users who created ticket
-        $ticket_created_by = $ticket_edit->user_id;
-        $users = User::find($ticket_created_by);
-        return view('agent.edit',compact('ticket_edit','users'));
+        
+       
+       
+        return view('agent.edit',compact('ticketassigned'));
     }
 
     /**
@@ -80,9 +81,15 @@ class TicketAssignedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(agentCommentRequest $request, Ticket $ticketassigned)
     {
-        //
+        
+     
+      $ticketassigned->update($request->validated()); 
+     
+
+   
+        return redirect()->route('ticketassigned.index')->with('success',$ticketassigned->title.' was successful updated');
     }
 
     /**

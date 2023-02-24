@@ -29,7 +29,7 @@
                     @foreach ($ticket->categories as $category )
                      <td> {{ $category->name }}</td>
                     @endforeach
-                    <td> <button  @if ($ticket->status == "open") class="btn btn-sm btn-danger" @else class="btn btn-sm btn-warning"  @endif>{{ ucfirst($ticket->status) }}</button></td>
+                    <td> <button  @if ($ticket->status == "open") class="btn btn-sm btn-danger" @elseif($ticket->status == "Closed") class="btn btn-sm btn-success" @else class="btn btn-sm btn-warning"  @endif>{{ ucfirst($ticket->status) }}</button></td>
                     <td><a  class="btn btn-sm  btn-primary" href="{{ route('tickets.show',$ticket) }}">Show</a></td>
                     <td>
                         <form action='{{ route("tickets.destroy",$ticket) }}' method="POST"> 

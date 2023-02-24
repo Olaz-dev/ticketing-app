@@ -45,8 +45,7 @@ class IndexPageController extends Controller
     {
         if(!empty($request->validated('ticket_image'))){
           $imageName = time().".".$request->validated('ticket_image')->extension();
-        
-      $request->validated('ticket_image')->move(public_path('uploadedTicketImages'),$imageName);
+          $request->validated('ticket_image')->move(public_path('uploadedTicketImages'),$imageName);
         }
         
         $ticket =Ticket::create($request->validated(),$imageName);

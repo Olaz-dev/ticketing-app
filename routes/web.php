@@ -30,11 +30,9 @@ Route::resource('index', IndexPageController::class);
 // })->middleware(['auth', 'admin'])->name('dashboard');
 
 Route::group(['middleware'=>'auth'], function(){
-    Route::get('/dashboard',function(){
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',function(){return view('dashboard');})->name('dashboard');
     Route::resource('index', IndexPageController::class)->only('create');
-    Route::resource('agent/ticketassigned',TicketAssignedController::class)->middleware('agent');
+    Route::resource('ticketassigned',TicketAssignedController::class)->middleware('agent');
     Route::resource('category',CategoryController::class)->middleware('admin');
     Route::resource('label',LabelController::class)->middleware('admin');
     Route::resource('priority',PriorityController::class)->middleware('admin');

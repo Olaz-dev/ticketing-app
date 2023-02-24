@@ -83,7 +83,7 @@ class SubmittedTicketController extends Controller
     {
         
         $ticket->update($request->validated());
-        $agentassigned = $ticket->users()->attach($request->input('agent'));
+       $ticket->users()->attach($request->input('agent'));
         
         return redirect()->route('tickets.index')->with('success','Agent Assigned');
     }
