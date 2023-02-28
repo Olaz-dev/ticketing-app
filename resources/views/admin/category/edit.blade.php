@@ -1,7 +1,5 @@
-<x-app-layout>
-  <div class="content-wrapper pb-0">
-    <div class="container-fluid">
-        <div class="col-md-6 grid-margin stretch-card">
+@extends('layouts.app')
+@section('content')
            <div class="card-body">
               <h4 class="card-title">Create Category</h4>
               <form method="POST" action="{{ route('category.update',$category) }}" class="forms-sample">
@@ -18,7 +16,4 @@
                   <button class="btn btn-primary mr-2"> Submit </button>
               </form>
             </div>
-        </div>
-    </div>
-  </div>
-</x-app-layout>
+@endsection

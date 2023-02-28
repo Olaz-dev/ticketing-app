@@ -212,7 +212,13 @@
         </nav>
         <div class="main-panel">
           @include('components.flash-message')
-          {{ $slot }}
+          <div class="content-wrapper pb-0">
+            <div class="card">
+            <div class="card-body">
+                          @yield('content')
+                </div>
+              </div>
+            </div>
 
           
           <footer class="footer">

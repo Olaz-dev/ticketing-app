@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+    @yield('content')
 <div class="content-wrapper pb-0">
             <div class="page-header flex-wrap">
               <h3 class="mb-0"> Hi, welcome back! <span class="pl-0 h6 pl-sm-2 text-muted d-inline-block">Your web analytics dashboard template.</span>
@@ -25,8 +25,8 @@
                       <div class="card-body px-3 py-4">
                         <div class="d-flex justify-content-between align-items-start">
                           <div class="color-card">
-                            <p class="mb-0 color-card-head">Sales</p>
-                            <h2 class="text-white"> $8,753.<span class="h5">00</span>
+                            <p class="mb-0 color-card-head">Categories</p>
+                            {{-- <h2 class="text-white"> Number Of Active Categories<span class="h5">{{ $category->count() }}</span> --}}
                             </h2>
                           </div>
                           <i class="card-icon-indicator mdi mdi-basket bg-inverse-icon-warning"></i>
@@ -802,6 +802,6 @@
                 <!--browser stats ends-->
               </div>
             </div>
-          </div>
-            
+          </div>  
+        
 </x-app-layout>

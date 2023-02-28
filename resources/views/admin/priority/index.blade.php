@@ -1,7 +1,5 @@
-<x-app-layout>
-    <div class="content-wrapper pb-0">
-        <div class="card">
-            <div class="card-body">
+@extends('layouts.app')
+@section('content')
                     <h4 class="card-title">priority table</h4>
                     <p class="card-description"> <a href="{{ route('priority.create') }}">Add priority</a></p>
                     @if(Session::has('status'))  {{ Session::get('status') }} @endif
@@ -35,7 +33,4 @@
                         </tbody>
                         </table>
                     </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+@endsection

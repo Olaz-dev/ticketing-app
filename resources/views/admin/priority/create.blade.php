@@ -1,8 +1,5 @@
-<x-app-layout>
-    <div class="content-wrapper pb-0">
-        <div class="container-fluid">
-            <div class="col-md-6 grid-margin stretch-card">
-                    <div class="card-body">
+@extends('layouts.app')
+@section('content')
                     <h4 class="card-title">Create Priority</h4>
                     <form method="POST" action="{{ route('priority.store') }}" class="forms-sample">
                         @csrf
@@ -15,10 +12,4 @@
                         </div>
                         <button class="btn btn-primary mr-2"> Submit </button>
                     </form>
-                    </div>
-            </div>
-      </div>
-    </div>
-    
-    
-</x-app-layout>
+@endsection
