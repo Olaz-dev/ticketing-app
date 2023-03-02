@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
   <div class="card-body">
     <h4 class="card-title">Create Label</h4>
     <form method="POST" action="{{ route('label.store') }}" class="forms-sample">
@@ -16,6 +15,5 @@
     </form>
   </div>
 </div>
-
 @endsection
  

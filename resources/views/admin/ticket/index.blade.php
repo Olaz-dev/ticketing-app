@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ( $tickets as $ticket )
+                @forelse ( $tickets as $ticket )
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         {{-- <td>{{ $user->name }}</td> --}}
@@ -37,7 +37,11 @@
                             </form> 
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                 <tr>
+                    <td>{{  __("No Tickets Found") }}</td>
+                 </tr>
+                @endforelse
                 </tbody>
                 </table>
         </div>
