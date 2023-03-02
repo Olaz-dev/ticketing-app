@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePriorityRequest;
 use App\Http\Requests\EditPriorityRequest;
 use App\Models\Priority;
-use Illuminate\Http\Request;
 
 class PriorityController extends Controller
 {
-
     public function index()
     {
         $priorities = Priority::paginate(15);
-        return view('admin.priority.index',compact('priorities'));
+
+        return view('admin.priority.index', compact('priorities'));
     }
 
     public function create()
@@ -23,8 +22,9 @@ class PriorityController extends Controller
 
     public function store(CreatePriorityRequest $request)
     {
-        $priority =Priority::create($request->validated());
-        return redirect()->route('priority.index')->with('success','New '. $priority->priority . ' was added successfully');
+        $priority = Priority::create($request->validated());
+
+        return redirect()->route('priority.index')->with('success', 'New '. $priority->priority .' was added successfully');
     }
 
     public function show(Priority $priority)
@@ -34,19 +34,20 @@ class PriorityController extends Controller
 
     public function edit(Priority $priority)
     {
-        return view('admin.priority.edit',compact('priority'));
+        return view('admin.priority.edit', compact('priority'));
     }
 
     public function update(EditPriorityRequest $request, Priority $priority)
     {
         $priority->update($request->validated());
-        return redirect()->route('priority.index')->with('success',$priority->priority." was updated sucessfully");
+
+        return redirect()->route('priority.index')->with('success', $priority->priority .' was updated sucessfully');
     }
-    
+
     public function destroy(Priority $priority)
     {
         $priority->delete();
-        
-        return redirect()->route('priority.index')->with('warning','Priority '.$priority->priority.' was successfully deleted');
+
+        return redirect()->route('priority.index')->with('warning', 'Priority '. $priority->priority.' was successfully deleted');
     }
 }

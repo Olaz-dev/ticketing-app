@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
-    protected $fillable =[
-        'name',
-    ];
+    use SoftDeletes, HasFactory;
+
+    protected $fillable = [
+
+          'name',
+     ];
 }

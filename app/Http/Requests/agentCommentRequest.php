@@ -24,9 +24,9 @@ class agentCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            "agent_comment" =>['required'],
-            "ticket_attended_to_by"=>[],
-            'status'=>[]
+            'agent_comment' =>['required'],
+            'ticket_attended_to_by'=>[],
+            'status'=>[],
         ];
     }
 }

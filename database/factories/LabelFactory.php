@@ -17,7 +17,7 @@ class LabelFactory extends Factory
     public function definition()
     {
         return [
-            "label"=>fake()->word(),
+            'label' => fake()->word(),
         ];
     }
 }

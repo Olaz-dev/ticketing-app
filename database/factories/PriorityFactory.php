@@ -17,7 +17,7 @@ class PriorityFactory extends Factory
     public function definition()
     {
         return [
-            "priority"=>fake()->word(),
+            'priority' => fake()->word(),
         ];
     }
 }

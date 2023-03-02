@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +17,11 @@ class AdminMiddleWare
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role_as == 2){
+        if (Auth::user()->role_as == 2) {
             return $next($request);
         }
-         abort(403);
-         return redirect()->back();
-        
+        abort(403);
+
+        return redirect()->back();
     }
 }

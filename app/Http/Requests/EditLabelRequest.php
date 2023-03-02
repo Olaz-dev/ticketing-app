@@ -24,7 +24,7 @@ class EditLabelRequest extends FormRequest
     public function rules()
     {
         return [
-            'label' => ['required','string']
+            'label' => ['required', 'string'],
         ];
     }
 }

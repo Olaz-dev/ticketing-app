@@ -24,7 +24,7 @@ class EditPriorityRequest extends FormRequest
     public function rules()
     {
         return [
-           'priority'=>['required','string']
+           'priority' => ['required', 'string'],
         ];
     }
 }

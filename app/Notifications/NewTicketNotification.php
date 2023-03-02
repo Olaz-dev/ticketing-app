@@ -4,9 +4,8 @@ namespace App\Notifications;
 
 use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class NewTicketNotification extends Notification
 {
@@ -35,8 +34,8 @@ class NewTicketNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            "type" => "Ticket Submitted",
-            "ticket_title" =>$this->ticket->title,
+            'type' => 'Ticket Submitted',
+            'ticket_title' => $this->ticket->title,
         ];
     }
 }

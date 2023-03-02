@@ -24,8 +24,8 @@ class TicketAgentAssignedRequest extends FormRequest
     public function rules()
     {
         return [
-           
-            'status'=>[],
+
+            'status' => [],
         ];
     }
 }

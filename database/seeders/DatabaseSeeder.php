@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use Database\Factories\LabelFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,8 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-       \App\Models\User::factory(2)->create();
-      $this->call(AgentSeeder::class);
+        \App\Models\User::factory(2)->create();
+        $this->call(AgentSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(labelSeeder::class);
         $this->call(PrioritySeeder::class);

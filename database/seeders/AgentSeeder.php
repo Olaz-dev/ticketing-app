@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AgentSeeder extends Seeder
@@ -14,7 +13,6 @@ class AgentSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(2)->create(['role_as'=>'2']);
-         
+        \App\Models\User::factory(2)->create(['role_as'=>'2']);
     }
 }
