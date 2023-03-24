@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Label;
+use App\Models\Ticket;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +15,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('label_ticket', function (Blueprint $table) {
-            $table->unsignedBigInteger('ticket_id');
-            $table->unsignedBigInteger('label_id');
-            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
-            $table->foreign('label_id')->references('id')->on('labels')->onDelete('cascade');
+            $table->foreignIdFor(Label::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Ticket::class)->constrained()->cascadeOnDelete();
         });
     }
 

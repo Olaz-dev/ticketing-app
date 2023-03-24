@@ -10,10 +10,7 @@ class UserMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role_as == 0) {
-            return $next($request);
-        }
-        abort(403);
+        abort_if(Auth::user()->role_as != 0, 403);
 
         return $next($request);
     }
