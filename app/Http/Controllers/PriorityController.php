@@ -24,12 +24,12 @@ class PriorityController extends Controller
     {
         $priority = Priority::create($request->validated());
 
-        return redirect()->route('priority.index')->with('success', 'New '. $priority->priority .' was added successfully');
+        return redirect()->route('priority.index')->with('success', $priority->priority . ' added successfully');
     }
 
     public function show(Priority $priority)
     {
-        abort(404);
+        //
     }
 
     public function edit(Priority $priority)
@@ -41,13 +41,13 @@ class PriorityController extends Controller
     {
         $priority->update($request->validated());
 
-        return redirect()->route('priority.index')->with('success', $priority->priority .' was updated sucessfully');
+        return redirect()->route('priority.index')->with('success', $priority->priority . ' updated sucessfully');
     }
 
     public function destroy(Priority $priority)
     {
         $priority->delete();
 
-        return redirect()->route('priority.index')->with('warning', 'Priority '. $priority->priority.' was successfully deleted');
+        return redirect()->route('priority.index')->with('warning', 'Priority ' . $priority->priority . ' deleted successfully ');
     }
 }
