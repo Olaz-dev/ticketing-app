@@ -22,15 +22,13 @@ class CategoryController extends Controller
 
     public function store(CreateCategoryRequest $request)
     {
-        category::create($request->validated());
+        Category::create($request->validated());
 
-        return redirect()->route('category.index')->with('success', 'category created!');
+        return to_route('category.index')->with('success', 'Category created!');
     }
 
     public function show(Category $category)
     {
-        $category = Category::find($category);
-
         return view('admin.category.edit', compact('category'));
     }
 
@@ -43,13 +41,17 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
 
-        return redirect()->route('category.index')->with('success', "$category->name".' edited successfully');
+        return to_route('category.index')->with('success', "$category->name" . ' edited successfully');
     }
 
     public function destroy(Category $category)
     {
+        if ($category->tickets()->count()) {
+            return back()->with('warning', 'Cannot delete. Category has other records.');
+        }
+
         $category->delete();
 
-        return redirect()->route('category.index')->with('warning', 'Deleted Successfully');
+        return to_route('category.index')->with('success', 'Category deleted Successfully');
     }
 }

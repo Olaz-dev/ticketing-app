@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Priority extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = [
-        'priority',
-    ];
+
+    protected $fillable = ['priority'];
 }

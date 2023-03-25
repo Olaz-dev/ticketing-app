@@ -17,21 +17,19 @@ class LabelController extends Controller
 
     public function create()
     {
-        $labels = Label::all();
-
-        return view('admin.label.create', $labels);
+        return view('admin.label.create');
     }
 
     public function store(CreateLabelRequest $request)
     {
         Label::create($request->validated());
 
-        return redirect()->route('label.index')->with('success', 'Label created successfully');
+        return to_route('label.index')->with('success', 'Label created successfully');
     }
 
     public function show(Label $label)
     {
-        abort(404);
+        //
     }
 
     public function edit(Label $label)
@@ -43,13 +41,17 @@ class LabelController extends Controller
     {
         $label->update($request->validated());
 
-        return redirect()->route('label.index')->with('success', 'Update was successful');
+        return to_route('label.index')->with('success', 'Label updated successfully.');
     }
 
     public function destroy(Label $label)
     {
+        if ($label->tickets()->count()) {
+            return back()->with('warning', 'Cannot delete. Label has other records.');
+        }
+
         $label->delete();
 
-        return redirect()->route('label.index')->with('warning', 'Deleted Successfully');
+        return to_route('label.index')->with('warning', 'Label deleted successfully');
     }
 }

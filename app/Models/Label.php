@@ -8,8 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Label extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $fillable = [
-        'label',
-];
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = ['label'];
+
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class);
+    }
 }

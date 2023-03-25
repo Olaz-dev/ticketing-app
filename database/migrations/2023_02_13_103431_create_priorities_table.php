@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('priority');
             $table->timestamps();
-            $table->timestamp('Deleted_at')->nullable();
+            $table->softDeletes();
         });
     }
 

@@ -30,19 +30,24 @@ class IndexPageController extends Controller
 
     public function store(CreateTicketRequest $request)
     {
-        if (! empty($request->validated('ticket_image'))) {
-            $imageName = time() . '.' . $request->validated('ticket_image')->extension();
-            $request->validated('ticket_image')->move(public_path('uploadedTicketImages'), $imageName);
-            $ticket = Ticket::create($request->validated(), $imageName);
-        } else {
-            $ticket = Ticket::create($request->validated());
-            $user = User::where('role_as', '3')->get();
-            Notification::send($user, new NewTicketNotification($ticket));
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('ticket_image')) {
+            $file = $request->file('ticket_image');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = public_path('/uploads/ticketImages');
+            $file->move($destinationPath, $fileName);
+
+            $validatedData['ticket_image'] = "/uploads/ticketImages/$fileName";
         }
 
+        $ticket = Ticket::create($validatedData);
         $ticket->labels()->attach($request->validated('label'));
         $ticket->categories()->attach($request->validated('category'));
 
-        return redirect()->route('index.index')->with('success', 'Ticket Submited Our Agents Would Get Back To  You Soon');
+        $user = User::where('role_as', '3')->get();
+        Notification::send($user, new NewTicketNotification($ticket));
+
+        return to_route('index.index')->with('success', 'Ticket Submited. Our Agents will soon revert.');
     }
 }
